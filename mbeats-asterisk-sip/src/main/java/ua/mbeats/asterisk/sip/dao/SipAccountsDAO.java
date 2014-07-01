@@ -61,19 +61,19 @@ public class SipAccountsDAO {
 		}
 	}
 
-	public String showSipList() {
+	public String showSipList(String sipprovider) {
 
 		String value = "";
 
 		try {
-			String query = "SELECT sipuser,sipprovider FROM sip ORDER BY sipprovider,sipuser";
+			String query = "SELECT sipuser FROM sip WHERE sipprovider='"+sipprovider+"' ORDER BY sipuser";
 
 			// Execute a query
 			statement = connection.createStatement();
 
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				value += rs.getString(1)+" -> "+rs.getString(2);
+				value += rs.getString(1);
 				if(!rs.isLast()){
 					value += ";";
 				}
