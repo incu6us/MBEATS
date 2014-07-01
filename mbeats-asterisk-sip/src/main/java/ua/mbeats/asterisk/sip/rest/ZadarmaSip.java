@@ -46,10 +46,10 @@ public class ZadarmaSip {
 		SipAccountsDAO sipAcc = new SipAccountsDAO();
 		
 		sipAcc.connect();
-		list = sipAcc.showSipList();
+		list = sipAcc.showSipList("zadarma");
 		sipAcc.disconnect();
 		
-		return "{ \"list\": \""+list+"\" }";
+		return "{\"list\":\""+list+"\"}";
 	}
 	
 }
