@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="db" class="ua.mbeats.asterisk.sip.spring.beans.Db">
+		<property name="driver" value="com.mysql.jdbc.Driver" />
+		<property name="dbUrl" value="jdbc:mysql://localhost/sipbulk" />
+		<property name="username" value="root" />
+		<property name="password" value="666666" />
+	</bean>
+</beans>
