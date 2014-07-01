@@ -18,6 +18,8 @@ public class SipAccountsDAO {
 	private String host = null;
 	private String user = null;
 	private String password = null;
+	
+	private String status;
 
 	private Connection connection = null;
 	private Statement statement = null;
@@ -32,21 +34,15 @@ public class SipAccountsDAO {
 		ctx.close();
 	}
 
-	public String getUser() {
-		return user;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public void connect() {
 
@@ -65,19 +61,19 @@ public class SipAccountsDAO {
 		}
 	}
 
-	public String getList() {
+	public String showSipList() {
 
 		String value = "";
 
 		try {
-			String query = "SELECT * FROM sip";
+			String query = "SELECT sipuser,sipprovider FROM sip ORDER BY sipprovider,sipuser";
 
 			// Execute a query
 			statement = connection.createStatement();
 
 			ResultSet rs = statement.executeQuery(query);
 			while (rs.next()) {
-				value += rs.getString(1);
+				value += rs.getString(1)+" -> "+rs.getString(2);
 				if(!rs.isLast()){
 					value += ";";
 				}
@@ -92,21 +88,36 @@ public class SipAccountsDAO {
 		return value;
 	}
 
-	public void addSipAcc(String sipuser, String sippassword, String sipprovider){
+	public String addSipAcc(String sipuser, String sippassword, String sipprovider){
 		try {
-			String query = "INSERT INTO sip (sipuser,sippassword,sipprovider) values ('"+sipuser+"', '"+sippassword+"', '"+sipprovider+"')";
+			
+			if(!sipuser.equals("")){
+				String query = "INSERT INTO sip (sipuser,sippassword,sipprovider) values ('"
+						+ sipuser
+						+ "', '"
+						+ sippassword
+						+ "', '"
+						+ sipprovider
+						+ "')";
 
-			// Execute a query
-			statement = connection.createStatement();
-			statement.executeUpdate(query);
+				// Execute a query
+				statement = connection.createStatement();
+				statement.executeUpdate(query);
+				setStatus("ok");
+			}else{
+				setStatus("fail");
+			}
 			
 		} catch (SQLException e) {
 			System.out.println("Query execution failed!");
 			e.printStackTrace();
+			setStatus("fail");
 		}
+		
+		return getStatus();
 	}
 	
-	public void deleteSipAcc(String sipuser){
+	public String deleteSipAcc(String sipuser){
 		try {
 			String deleteQuery = "DELETE FROM sip WHERE sipuser='"+sipuser+"'";
 
@@ -114,10 +125,15 @@ public class SipAccountsDAO {
 			statement = connection.createStatement();
 			statement.executeUpdate(deleteQuery);
 			
+			setStatus("ok");
 		} catch (SQLException e) {
 			System.out.println("Query execution failed!");
 			e.printStackTrace();
+			
+			setStatus("fail");
 		}
+		
+		return getStatus();
 	}
 	
 	
