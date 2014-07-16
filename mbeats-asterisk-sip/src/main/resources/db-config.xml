@@ -8,5 +8,6 @@
 		<property name="dbUrl" value="jdbc:mysql://localhost/sipbulk" />
 		<property name="username" value="root" />
 		<property name="password" value="666666" />
+		
 	</bean>
 </beans>
