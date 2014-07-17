@@ -19,28 +19,17 @@ public class SipAccountsDAO {
 	private String user = null;
 	private String password = null;
 	
-	private String status;
-
 	private Connection connection = null;
 	private Statement statement = null;
 
 	public SipAccountsDAO() {
-		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("db-config.xml");
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("config.xml");
 		Db db = (Db) ctx.getBean("db");
 		this.driver = db.getDriver();
 		this.host = db.getDbUrl();
 		this.user = db.getUsername();
 		this.password = db.getPassword();
 		ctx.close();
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 
@@ -61,12 +50,37 @@ public class SipAccountsDAO {
 		}
 	}
 
-	public String showSipList(String sipprovider) {
+	public String showSipList() {
 
 		String value = "";
 
 		try {
-			String query = "SELECT sipuser FROM sip WHERE sipprovider='"+sipprovider+"' ORDER BY sipuser";
+			String query = "SELECT name FROM sip_custom WHERE advanced='1' ORDER BY name";
+
+			// Execute a query
+			statement = connection.createStatement();
+
+			ResultSet rs = statement.executeQuery(query);
+			while (rs.next()) {
+				value += "\""+rs.getString(1)+"\"";
+				if(!rs.isLast()){
+					value += ", ";
+				}
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			System.out.println("Query execution failed!");
+			e.printStackTrace();
+		}
+
+		return value;
+	}
+	
+	public String fetchSipId(String sipName){
+		String value = "";
+		try {
+			String query = "SELECT id FROM sip_custom WHERE advanced='1' and name = '"+sipName+"'";
 
 			// Execute a query
 			statement = connection.createStatement();
@@ -84,59 +98,10 @@ public class SipAccountsDAO {
 			System.out.println("Query execution failed!");
 			e.printStackTrace();
 		}
-
+		
 		return value;
 	}
 
-	public String addSipAcc(String sipuser, String sippassword, String sipprovider){
-		try {
-			
-			if(!sipuser.equals("")){
-				String query = "INSERT INTO sip (sipuser,sippassword,sipprovider) values ('"
-						+ sipuser
-						+ "', '"
-						+ sippassword
-						+ "', '"
-						+ sipprovider
-						+ "')";
-
-				// Execute a query
-				statement = connection.createStatement();
-				statement.executeUpdate(query);
-				setStatus("ok");
-			}else{
-				setStatus("fail");
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("Query execution failed!");
-			e.printStackTrace();
-			setStatus("fail");
-		}
-		
-		return getStatus();
-	}
-	
-	public String deleteSipAcc(String sipuser){
-		try {
-			String deleteQuery = "DELETE FROM sip WHERE sipuser='"+sipuser+"'";
-
-			// Execute a query
-			statement = connection.createStatement();
-			statement.executeUpdate(deleteQuery);
-			
-			setStatus("ok");
-		} catch (SQLException e) {
-			System.out.println("Query execution failed!");
-			e.printStackTrace();
-			
-			setStatus("fail");
-		}
-		
-		return getStatus();
-	}
-	
-	
 	public void disconnect() {
 		try {
 			if (statement != null) {

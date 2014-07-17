@@ -7,7 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
-		<config>src/main/resources/db-config.xml</config>
+		<config>src/main/resources/config.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

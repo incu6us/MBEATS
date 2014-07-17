@@ -5,9 +5,12 @@
 
 	<bean id="db" class="ua.mbeats.asterisk.sip.spring.beans.Db">
 		<property name="driver" value="com.mysql.jdbc.Driver" />
-		<property name="dbUrl" value="jdbc:mysql://localhost/sipbulk" />
+		<property name="dbUrl" value="jdbc:mysql://localhost/asterisk" />
 		<property name="username" value="root" />
 		<property name="password" value="666666" />
-		
+	</bean>
+	
+	<bean id="host" class="ua.mbeats.asterisk.sip.spring.beans.PostTo">
+		<property name="host" value="127.0.0.1"/>
 	</bean>
 </beans>

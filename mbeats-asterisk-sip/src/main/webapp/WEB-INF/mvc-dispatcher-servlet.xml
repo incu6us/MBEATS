@@ -33,7 +33,7 @@
 	</context:component-scan>
 
 	<!-- Security -->
-	<import resource="security.xml" />
+	<!-- <import resource="security.xml" />-->
 
 
 </beans>
