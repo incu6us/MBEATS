@@ -34,13 +34,13 @@ public class ZadarmaSip {
 		String register = username.trim() + ":" + password.trim()
 				+ "@sip.zadarma.com/" + nameid.trim();
 
-		String config = "type=friend\n\r" + "username="+username.trim()+"\n\r"
-				+ "defaultuser="+username.trim()+"\n\r" + "secret="+password.trim()+"\n\r"
-				+ "fromuser="+username.trim()+"\n\r" + "fromdomain=sip.zadarma.com\n\r"
-				+ "host=sip.zadarma.com\n\r" + "qualify=yes\n\r"
-				+ "nat=yes\n\r" + "dtmfmode=rfc2833\n\r"
-				+ "insecure=invite\n\r" + "context="+nameid.trim()+"\r\n"
-				+ "canreinvite=no\n\r" + ";srvlookup=no";
+		String config = "type=friend\n" + "username="+username.trim()+"\n"
+				+ "defaultuser="+username.trim()+"\n" + "secret="+password.trim()+"\n"
+				+ "fromuser="+username.trim()+"\n" + "fromdomain=sip.zadarma.com\n"
+				+ "host=sip.zadarma.com\n" + "qualify=yes\n"
+				+ "nat=yes\n" + "dtmfmode=rfc2833\n"
+				+ "insecure=invite\n" + "context="+nameid.trim()+"\n"
+				+ "canreinvite=no\n" + ";srvlookup=no";
 
 		params.put("c_sip_name_a", nameid.trim());
 		params.put("c_sip_register_a", register);
