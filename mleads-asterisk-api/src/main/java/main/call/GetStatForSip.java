@@ -83,8 +83,8 @@ public class GetStatForSip {
             }
             
             try{
-                standby = Integer.parseInt(SysExec.execute(script+" standby \""+opersArr+"\"").replace("\n", ""));
-            }catch(NumberFormatException e){
+                standby = numElements - inAction;
+            }catch(Exception e){
                 standby = 0;
                 java.util.logging.Logger.getLogger(getClass().getName()).log(java.util.logging.Level.INFO, null, e);
             }
