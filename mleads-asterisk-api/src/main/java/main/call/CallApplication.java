@@ -40,6 +40,7 @@ public class CallApplication extends Application {
         resources.add(main.call.GetStatForSip.class);
         resources.add(main.call.MLeadsIDResource.class);
         resources.add(main.call.SipToMSISDNResource.class); 
+        resources.add(main.call.AutoDial.class); 
     }
     
 }
