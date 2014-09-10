@@ -60,7 +60,7 @@ public class AsterManager {
         ManagerResponse originateResponse;
         
         originateAction = new OriginateAction();
-        originateAction.setChannel("Local/" + msisdn + "@gsm-out");
+        originateAction.setChannel("Local/" + msisdn + "@autodial-out");
         originateAction.setCallerId(msisdn);
         originateAction.setContext("autodial");
         originateAction.setExten(msisdn);
@@ -75,7 +75,7 @@ public class AsterManager {
 			
 			// send the originate action and wait for a maximum of 30 seconds for Asterisk to send a reply
 			originateResponse = managerConnection.sendAction(originateAction, 60000);
-			
+
 			// and finally log off and disconnect
 			managerConnection.logoff();
 		} catch (IllegalStateException | IOException

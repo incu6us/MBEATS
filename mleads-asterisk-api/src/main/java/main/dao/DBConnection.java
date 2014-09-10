@@ -91,6 +91,17 @@ public class DBConnection {
         }
     }
     
+    public void autodialInsertMsisdn(Integer id, String msisdn){
+        try {
+            stmt = c.prepareStatement("INSERT INTO autodial (id, msisdn) VALUES (?, ?)");
+            stmt.setInt(1, id);
+            stmt.setString(2, msisdn);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void disconnect() throws SQLException {
         stmt.close();
         c.close();
