@@ -35,14 +35,17 @@ public class AutoDial {
 			String managerUsername = JNDIBean.getContextValue("MLeadsAPI", "manager-username");
 			String managerPassword = JNDIBean.getContextValue("MLeadsAPI", "manager-password");
 			String autodialGroup = JNDIBean.getContextValue("MLeadsAPI", "autodialGroup");
+			String autodialDebug = JNDIBean.getContextValue("MLeadsAPI", "autodialDebug");
 			
 			/*
 			 * For debug to show flow in database
 			 */
-//			DBConnection db =new DBConnection(jdbc);
-//			db.connect();
-//			db.autodialInsertMsisdn(id, msisdn);
-//			db.disconnect();
+			if(autodialDebug == "true"){
+				DBConnection db =new DBConnection(jdbc);
+				db.connect();
+				db.autodialInsertMsisdn(id, msisdn);
+				db.disconnect();
+			}
 			
 			AsterManager manager = new AsterManager(managerHostname, managerUsername, managerPassword);
 			if(manager.autodialCall(id, msisdn, autodialGroup)){
