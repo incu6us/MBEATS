@@ -40,7 +40,7 @@ public class AutoDial {
 			/*
 			 * For debug to show flow in database
 			 */
-			if(autodialDebug == "true"){
+			if(autodialDebug.contains("true")){
 				DBConnection db =new DBConnection(jdbc);
 				db.connect();
 				db.autodialInsertMsisdn(id, msisdn);
